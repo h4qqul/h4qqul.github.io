@@ -103,7 +103,7 @@
             <div class="container skill-wrap">
                 <div class="row d-flex justify-content-between ">
                     <div class="col-lg-2">
-                        <h1 class="skill-text-1">4+</h1>
+                        <h1 class="skill-text-1">2+</h1>
                         <h1 class="skill-text-2">Years
                             Experience
                             Working</h1>
@@ -115,14 +115,14 @@
                             <div class="box-1 d-flex align-items-end">
                                 <div class="inner-box">
                                     <img src="./assets/computer.svg" alt="">
-                                    <h3 class="text-white">Frontend Developer</h3>
+                                    <h3 >Frontend Developer</h3>
                                 </div>
 
                             </div>
                             <div class="box-2 d-flex align-items-end">
                                 <div class="inner-box">
                                     <img src="./assets/paint.svg" alt="">
-                                    <h3>UI/UX Designer</h3>
+                                    <h3 >UI/UX Designer</h3>
                                 </div>
 
                             </div>
@@ -146,7 +146,7 @@
             <div class="container about-wrap">
                 <div class="row">
                     <div class="col-lg-4">
-                        <img src="./assets/img2.png" alt="">
+                        <img src="./assets/Foto.JPG" alt="" style= "height: 450px " >
                     </div>
                     <div class="col-lg-5">
                         <h1 class="text-white">About Me</h1>
@@ -201,6 +201,11 @@
                         </div>
                     </div>
                     <div class="col-lg-4 offset-lg-3">
+                        <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                            <strong>Terima Kasih!</strong> Pesan Anda sudah Terkirim.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+
                         <form name="contact-form">
                             <div class="mb-3">
                                 <label for="name" class="form-label text-white">Your Name</label>
@@ -216,14 +221,20 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label text-white">Tell me about the
+                                <label for="pesan" class="form-label text-white">Tell me about the
                                     project</label>
-                                <textarea name="messege" id="" cols="55" rows="10" style="resize:none;"
+                                <textarea name="pesan" id="" cols="55" rows="10" style="resize:none;"
                                     class="rounded" name="pesan"></textarea>
 
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-kirim">Submit</button>
+
+                            <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                              </button>
+
                         </form>
                     </div>
                 </div>
@@ -238,22 +249,37 @@
         </div>
     </section>
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous">
 
      
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyo-LtkSdX4PLcYYjXTg1-g1PUOW7T9g8UOmmdvV20BKz3cc9A-P0ht4NFo89Wg2tB4/exec'
-            const form = document.forms['contact-form']
-          
-            form.addEventListener('submit', e => {
-              e.preventDefault()
-              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => console.log('Success!', response))
+            </script>
+
+            <script>
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbyo-LtkSdX4PLcYYjXTg1-g1PUOW7T9g8UOmmdvV20BKz3cc9A-P0ht4NFo89Wg2tB4/exec';
+                const form = document.forms['contact-form'];
+                const btnKirim = document.querySelector('.btn-kirim');
+                const btnLoading = document.querySelector('.btn-loading');
+                const myAlert = document.querySelector('.my-alert');
+                
+                form.addEventListener('submit', e => {
+                 e.preventDefault()
+                 btnLoading.classList.toggle('d-none');
+                 btnKirim.classList.toggle('d-none');
+                fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+
+                    btnLoading.classList.toggle('d-none');
+                    btnKirim.classList.toggle('d-none');
+                    myAlert.classList.toggle('d-none');
+
+                    form.reset();
+                    console.log('Success!', response)
+                })
                 .catch(error => console.error('Error!', error.message))
-            })</script>
+            })
+            </script>
 
     
 </body>
