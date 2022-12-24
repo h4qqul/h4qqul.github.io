@@ -201,25 +201,25 @@
                         </div>
                     </div>
                     <div class="col-lg-4 offset-lg-3">
-                        <form>
+                        <form name="contact-form">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label text-white">Your Name</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" name="name">
+                                <label for="name" class="form-label text-white">Your Name</label>
+                                <input type="text" class="form-control" id="name"
+                                    aria-describedby="name" name="nama">
 
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label text-white">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                <label for="email" class="form-label text-white">Email address</label>
+                                <input type="email" class="form-control" id="email"
                                     aria-describedby="emailHelp" name="email">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                <div id="email" class="form-text">We'll never share your email with anyone else.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label text-white">Tell me about the
                                     project</label>
                                 <textarea name="messege" id="" cols="55" rows="10" style="resize:none;"
-                                    class="rounded"></textarea>
+                                    class="rounded" name="pesan"></textarea>
 
                             </div>
 
@@ -243,6 +243,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-</body>
 
-</html>
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyo-LtkSdX4PLcYYjXTg1-g1PUOW7T9g8UOmmdvV20BKz3cc9A-P0ht4NFo89Wg2tB4/exec'
+            const form = document.forms['contact-form']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => console.log('Success!', response))
+                .catch(error => console.error('Error!', error.message))
+            })
+
